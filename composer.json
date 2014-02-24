@@ -1,0 +1,36 @@
+{
+    "name": "MrSimonBennett/ReallyFastPHPServer",
+    "description": "A HTTP Server Provided by LushSoftware LTD",
+    "license": "Private",
+    "authors": [
+        {
+            "name": "Simon Bennett",
+            "email": "simon@lushsoftware.co.uk"
+        }
+    ],
+    
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.0",
+        
+        "mrsimonbennett/phpcpuburn" : "*",
+        "symfony/http-foundation": "dev-master",
+        "symfony/routing": "dev-master",
+        "phpunit/phpunit" : "*"
+      
+
+    },
+
+     "replace": {
+        "MrSimonBennett/Rest": "self.version",
+        "MrSimonBennett/Bootstrap": "self.version",
+        "MrSimonBennett/RestFrameWork": "self.version"
+    },
+     "autoload": {
+        "classmap": [
+            "src/MrSimonBennett/Rest/app/config",
+            "src/MrSimonBennett/Rest/app/controllers"
+        ],
+        "psr-0": {"MrSimonBennett": "src"}
+    }
+}

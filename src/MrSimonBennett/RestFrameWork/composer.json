@@ -1,0 +1,28 @@
+{
+    "name":"mrsimonbennett/restframework",
+    "description": "The Bennett Rest Framework",
+    "license": "MIT",
+    "authors":
+    [
+        {
+            "name": "Simon Bennett",
+            "email": "simon@bennett.im"
+        }   
+    ],
+    "require":{
+        "php": ">=5.3.0",
+        "symfony/http-foundation": "dev-master",
+        "symfony/routing": "dev-master",
+        "phpunit/phpunit" : "*"
+
+    },
+    "target-dir": "MrSimonBennett/RestFramework",
+
+    "autoload": {
+        "psr-0": {
+            "MrSimonBennett/RestFramework": ""
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

@@ -1,0 +1,27 @@
+{
+    "name":"mrsimonbennett/rest",
+    "description": "A php library for using a lot of CPU good for benchmarking. A useful part of my final project so made it public",
+    "license": "GNU v2",
+    "authors":
+    [
+        {
+            "name": "Simon Bennett",
+            "email": "simon@bennett.im"
+        }   
+    ],
+    
+    "target-dir": "MrSimonBennett/Rest",
+    "autoload": {
+        
+        "classmap": [
+            "app/config",
+            "app/controllers"
+        ]
+    },
+     "minimum-stability": "dev",
+     "require":{
+        "php": ">=5.3.0",
+        "mrsimonbennett/RestFrameWork" : "*"
+    }
+    
+}
