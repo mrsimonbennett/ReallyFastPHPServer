@@ -8,13 +8,13 @@
 
 
 
-	$error = new Bennett\Server\Error();
+	$error = new MrSimonBennett\Server\Error();
 	register_shutdown_function(array($error,'shut'));
 	set_error_handler(array($error,'handler'));
 
 
-	$socket = new Bennett\Server\Socket();
-	$stats = new Bennett\Server\Stats();
+	$socket = new MrSimonBennett\Server\Socket();
+	$stats = new MrSimonBennett\Server\Stats();
 	$socket->port(8000);
 	$socket->address(0);
 	$socket->Create();
@@ -23,14 +23,14 @@
 
 	//Dumbys to make sure the autoloader works before starting a loop. Not perfect i know. Well It might be as including files while running is a bad idea I/O errors
 	//Maybe need a dummy run first.
-    $restserver = new Bennett\Rest\Server(new Bennett\HTTP\Get(),new Bennett\HTTP\Post(),new Bennett\HTTP\Server());
-	$routes = new Bennett\Rest\Routes();
-	$responce = new Bennett\HTTP\Responce();
-	$request = 	new Bennett\HTTP\Request($responce,new Bennett\HTTP\Get(),new Bennett\HTTP\Post(),new Bennett\HTTP\Server());
-	$app = new MrSimonBennett\Bootstrap\Application();
+  
+	
+	$responce = new MrSimonBennett\HTTP\Responce();
+	$request = 	new MrSimonBennett\HTTP\Request($responce,new MrSimonBennett\HTTP\Get(),new MrSimonBennett\HTTP\Post(),new MrSimonBennett\HTTP\Server());
+	$app = new MrSimonBennett\RestFrameWork\Bootstrap\Application();
 	unset($responce,$request,$restserver,$routes,$app);
-	$app = new MrSimonBennett\Bootstrap\Application();		
-	new MrSimonBennett\Controller\ControllerNotFoundException();
+	$app = new MrSimonBennett\RestFrameWork\Bootstrap\Application();		
+	new MrSimonBennett\RestFrameWork\Controller\ControllerNotFoundException();
 	$app->httpFromManual([],[],[],[],['REQUEST_METHOD' => 'get', 'REQUEST_URI' => '/'],[]);
 	$app->run();
 	$app->stop();
@@ -57,8 +57,8 @@
 			$start = microtime(true);
 			
 		
-			$responce = new Bennett\HTTP\Responce();
-			$request = 	new Bennett\HTTP\Request($responce,new Bennett\HTTP\Get(),new Bennett\HTTP\Post(),new Bennett\HTTP\Server());
+			$responce = new MrSimonBennett\HTTP\Responce();
+			$request = 	new MrSimonBennett\HTTP\Request($responce,new MrSimonBennett\HTTP\Get(),new MrSimonBennett\HTTP\Post(),new MrSimonBennett\HTTP\Server());
 			
 			$request->read($this->client);
 			$routes = $this->routes;

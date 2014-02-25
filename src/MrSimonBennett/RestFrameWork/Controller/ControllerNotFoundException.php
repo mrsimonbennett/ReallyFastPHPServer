@@ -1,6 +1,6 @@
 <?php
 
-namespace MrSimonBennett\Controller;
+namespace MrSimonBennett\RestFramework\Controller;
 
 class ControllerNotFoundException extends \Exception
 {
