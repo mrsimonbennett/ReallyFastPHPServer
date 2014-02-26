@@ -80,6 +80,7 @@
 			$request->process($process);	
 			$response->Go($this->client);
 			@socket_shutdown($this->client,STREAM_SHUT_WR);
+            @socket_close($client['client']);
 			
 		}
 
@@ -111,9 +112,10 @@
 			if(!$client['thread']->isRunning())
 			{
 				//echo '#';
+                $client['thread']->join();
 				@socket_shutdown($client['client'],STREAM_SHUT_WR);
 				@socket_close($client['client']);
-				$client['thread']->join();
+                $client['client'] = null;
 				unset($clients[$key]);
 
 
