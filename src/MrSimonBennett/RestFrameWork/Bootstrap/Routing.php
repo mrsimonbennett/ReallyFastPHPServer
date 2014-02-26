@@ -7,6 +7,7 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 
 class Routing
 {
@@ -65,10 +66,12 @@ class Routing
 		    $parameters = $matcher->matchRequest($request);
 		} catch (ResourceNotFoundException $e) {
 			$parameters = ['_controller' => "error", '_method' => 'actionNotFound', '_route' => '404'];
-		} catch (Exception $e) {
+        }
+        catch (MethodNotAllowedException $e) {
+            $parameters = ['_controller' => "error", '_method' => 'actionNotFound', '_route' => '404'];
+        } catch (Exception $e) {
 			$parameters = ['_controller' => "error", '_method' => 'actionError', '_route' => '500'];
 		}
-
 
 
 		return $this->sanitiseParams($parameters);
