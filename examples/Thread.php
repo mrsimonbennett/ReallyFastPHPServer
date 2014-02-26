@@ -4,7 +4,7 @@
  * Each Time a new client connects it creates a new Thread to handel the request 
  */
 
-	require __DIR__ . '/../vendor/autoload.php'; 
+    $loader = require __DIR__ . '/../vendor/autoload.php';
 
 
 
@@ -43,8 +43,13 @@
 
 	class Process extends Thread
 	{
-		public function __construct($client,$routes)
+        /*
+         * @var \Composer\Autoload\ClassLoader
+         */
+        public $loader;
+		public function __construct($client,$routes,$loader = null)
 		{
+            $this->loader = $loader;
 			$this->client = $client;
 			$this->routes = $routes;
 			unset($client);
@@ -53,18 +58,19 @@
 		}
 		public function Run()
 		{
-			require __DIR__ . '/../vendor/autoload.php'; 
-			$start = microtime(true);
-			
+            if ($this->loader) {
+                $this->loader->register();
+            }
+
 		
-			$responce = new MrSimonBennett\HTTP\Responce();
-			$request = 	new MrSimonBennett\HTTP\Request($responce,new MrSimonBennett\HTTP\Get(),new MrSimonBennett\HTTP\Post(),new MrSimonBennett\HTTP\Server());
+			$response = new MrSimonBennett\HTTP\Responce();
+			$request = 	new MrSimonBennett\HTTP\Request($response,new MrSimonBennett\HTTP\Get(),new MrSimonBennett\HTTP\Post(),new MrSimonBennett\HTTP\Server());
 			
 			$request->read($this->client);
 			$routes = $this->routes;
 			$process = function($get,$post,$server,$args) 
 			{	
-				$app = new MrSimonBennett\Bootstrap\Application();		
+				$app = new MrSimonBennett\RestFrameWork\Bootstrap\Application();
 				$app->httpFromManual([],[],[],[],['REQUEST_METHOD' => $server->method, 'REQUEST_URI' => $server->uri],[]);
 				$app->run();
 				$app->stop();
@@ -72,7 +78,7 @@
 		    	
 			};
 			$request->process($process);	
-			$responce->Go($this->client);
+			$response->Go($this->client);
 			@socket_shutdown($this->client,STREAM_SHUT_WR);
 			
 		}
@@ -82,15 +88,15 @@
 	
 	$routes =  file_get_contents(__DIR__ . "/route.php", "r");
 
-	$loop = new Bennett\Event\Loop();
+	$loop = new MrSimonBennett\Event\Loop();
 	$clients = [];
 
 	$count = 0;
 
-	$run = function() use ($socket,&$routes,&$count,&$clients,$stats) {
+	$run = function() use ($socket,&$routes,&$count,&$clients,$stats,&$loader) {
 		//echo '.';
 		$client = socket_accept($socket->socket);
-		$clients[$count] = ['thread' => new Process($client,$routes), 'client' => $client ];
+		$clients[$count] = ['thread' => new Process($client,$routes,$loader), 'client' => $client ];
 		unset($client);
 		$count++;
 
