@@ -1,23 +1,22 @@
 <?php
 namespace MrSimonBennett\Event;
 
-
+use Closure;
 class Loop
 {
-	private $_functions = array();
-	public function add($function,$every = null)
+	private $functions = array();
+	public function add(Closure $function,$every = null)
 	{
-		$this->_functions[] = $function;
+		$this->functions[] = $function;
 		return $this;
 	}
 
 	public function Run()
 	{ 
-		$i =0;
 		while(true)
 		{
 			//var_dump($this->_functions);
-			foreach($this->_functions as $function)
+			foreach($this->functions as $function)
 			{
 				$function();
 			}
