@@ -23,7 +23,7 @@ class Responce
 		$this->_content = $content;
 		return $this;
 	}
-	public function Go(&$client)
+	public function Go($client)
 	{
 		$response = array(	
 			"head" => array(
