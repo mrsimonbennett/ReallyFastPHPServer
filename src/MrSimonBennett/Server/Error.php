@@ -23,6 +23,7 @@ class Error
 		else
 		{
 			print_r('Closed Well');
+            echo PHP_EOL;
 		}
 
 	}
