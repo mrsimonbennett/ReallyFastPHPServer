@@ -99,7 +99,6 @@ class Request
 		
 		//becuase the process with buffer and we want the buffer in the broswer not here we will catch it.
 		ob_start( );
-		//echo 'It Fuckings works';
 		$function($this->_get,$this->_post,$this->_server,$args);
 		$output = ob_get_clean();
 		
